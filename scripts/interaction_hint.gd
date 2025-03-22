@@ -2,6 +2,7 @@ extends Control
 
 
 func _ready() -> void:
+	$Label.text = ""
 	(owner as Hud).interaction_dispatcher.receiver_changed.connect(_on_receiver_changed)
 
 

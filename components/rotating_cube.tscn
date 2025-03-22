@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://clcw7rxtmjpa5"]
+[gd_scene load_steps=8 format=3 uid="uid://clcw7rxtmjpa5"]
 
+[ext_resource type="Script" uid="uid://c718pfk0gbcda" path="res://scripts/rotating_cube.gd" id="1_ca5ju"]
 [ext_resource type="Script" uid="uid://ksy0s0r35gw4" path="res://scripts/rotator.gd" id="1_v448y"]
 [ext_resource type="Script" uid="uid://bglowf6am35jg" path="res://scripts/interaction_receiver.gd" id="2_g4rjk"]
 [ext_resource type="Script" uid="uid://cbcfbgcmhplc" path="res://scripts/test.gd" id="3_ca5ju"]
@@ -10,6 +11,7 @@
 [sub_resource type="BoxMesh" id="BoxMesh_ri1ix"]
 
 [node name="RotatingCube" type="Node3D"]
+script = ExtResource("1_ca5ju")
 
 [node name="Rotator" type="Node3D" parent="."]
 script = ExtResource("1_v448y")
@@ -26,6 +28,7 @@ mesh = SubResource("BoxMesh_ri1ix")
 skeleton = NodePath("../../..")
 
 [node name="InteractionReceiver" type="Node" parent="Rotator/Cube"]
+unique_name_in_owner = true
 script = ExtResource("2_g4rjk")
 
 [node name="Test" type="Node" parent="Rotator/Cube"]

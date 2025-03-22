@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://c362txc8wkpae"]
+[gd_scene load_steps=4 format=3 uid="uid://c362txc8wkpae"]
 
+[ext_resource type="Script" uid="uid://04lb2uq7l45d" path="res://scripts/hud.gd" id="1_gbh6h"]
 [ext_resource type="Script" uid="uid://bt1yewpp711tw" path="res://scripts/score_label.gd" id="2_gbh6h"]
+[ext_resource type="Script" uid="uid://bhro5d811c64a" path="res://scripts/interaction_hint.gd" id="2_nk167"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -10,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("1_gbh6h")
 
 [node name="ScoreLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -22,3 +25,27 @@ text = "[b]Score:[/b] 1234"
 fit_content = true
 autowrap_mode = 0
 script = ExtResource("2_gbh6h")
+
+[node name="InteractionHint" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 561.0
+offset_top = 328.0
+offset_right = 561.0
+offset_bottom = 328.0
+script = ExtResource("2_nk167")
+
+[node name="Label" type="Label" parent="InteractionHint"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Hello"
+horizontal_alignment = 1

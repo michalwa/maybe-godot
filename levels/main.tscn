@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ksy0s0r35gw4" path="res://scripts/rotator.gd" id="1_2262g"]
 [ext_resource type="Script" uid="uid://dpf7kny48y5u5" path="res://scripts/game_state.gd" id="1_ifaiv"]
 [ext_resource type="PackedScene" uid="uid://clcw7rxtmjpa5" path="res://components/rotating_cube.tscn" id="1_wdj6m"]
-[ext_resource type="Script" uid="uid://d3ta2sebrlhak" path="res://scripts/camera.gd" id="2_wdj6m"]
+[ext_resource type="Script" uid="uid://dsbj602dichof" path="res://scripts/interaction_dispatcher.gd" id="2_5k4jt"]
 [ext_resource type="PackedScene" uid="uid://c362txc8wkpae" path="res://components/hud.tscn" id="4_m1504"]
 
 [sub_resource type="Environment" id="Environment_2262g"]
@@ -19,7 +19,14 @@ size = Vector3(10, 10, 10)
 [node name="GameState" type="Node" parent="."]
 script = ExtResource("1_ifaiv")
 
-[node name="Hud" parent="." instance=ExtResource("4_m1504")]
+[node name="InteractionDispatcher" type="Node" parent="."]
+script = ExtResource("2_5k4jt")
+interaction_raycast_collision_mask = 2
+interaction_max_distance = 50.0
+
+[node name="Hud" parent="." node_paths=PackedStringArray("game_state", "interaction_dispatcher") instance=ExtResource("4_m1504")]
+game_state = NodePath("../GameState")
+interaction_dispatcher = NodePath("../InteractionDispatcher")
 
 [node name="RotatorAnchor" type="Node3D" parent="."]
 transform = Transform3D(0.904715, -0.200928, 0.375657, -1.86265e-08, 0.88179, 0.471643, -0.426016, -0.426703, 0.797769, 1.05953, 1.257, 2.04001)
@@ -32,9 +39,6 @@ metadata/_custom_type_script = "uid://ksy0s0r35gw4"
 [node name="Camera3D" type="Camera3D" parent="RotatorAnchor/Rotator"]
 transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, 5.96046e-08, 1, 0, 0, 0)
 fov = 90.0
-script = ExtResource("2_wdj6m")
-interaction_raycast_collision_mask = 2
-interaction_max_distance = 10.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_2262g")
@@ -53,9 +57,12 @@ audio_bus_name = &"Reverb"
 shape = SubResource("BoxShape3D_ifaiv")
 
 [node name="RotatingCube1" parent="." instance=ExtResource("1_wdj6m")]
+label = "John"
 
 [node name="RotatingCube2" parent="." instance=ExtResource("1_wdj6m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.33609, 0, 0.622863)
+label = "Bob"
 
 [node name="RotatingCube3" parent="." instance=ExtResource("1_wdj6m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.95925, 2.38419e-07, -3.4727)
+label = "Jack"

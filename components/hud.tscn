@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://c362txc8wkpae"]
+
+[ext_resource type="Script" uid="uid://chaffl5fmrvk3" path="res://scripts/hud.gd" id="1_nk167"]
+[ext_resource type="Script" uid="uid://bt1yewpp711tw" path="res://scripts/score_label.gd" id="2_gbh6h"]
+
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_nk167")
+
+[node name="ScoreLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 97.0
+offset_bottom = 56.0
+bbcode_enabled = true
+text = "[b]Score:[/b] 1234"
+fit_content = true
+autowrap_mode = 0
+script = ExtResource("2_gbh6h")

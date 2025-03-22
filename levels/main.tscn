@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckkowk641jixe"]
+[gd_scene load_steps=7 format=3 uid="uid://ckkowk641jixe"]
 
 [ext_resource type="Script" uid="uid://ksy0s0r35gw4" path="res://scripts/rotator.gd" id="1_2262g"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_ri1ix"]
+[ext_resource type="Script" uid="uid://dpf7kny48y5u5" path="res://scripts/game_state.gd" id="1_ifaiv"]
+[ext_resource type="PackedScene" uid="uid://clcw7rxtmjpa5" path="res://components/rotating_cube.tscn" id="1_wdj6m"]
+[ext_resource type="Script" uid="uid://d3ta2sebrlhak" path="res://scripts/camera.gd" id="2_wdj6m"]
+[ext_resource type="PackedScene" uid="uid://c362txc8wkpae" path="res://components/hud.tscn" id="4_m1504"]
 
 [sub_resource type="Environment" id="Environment_2262g"]
 ambient_light_source = 2
@@ -11,20 +13,40 @@ tonemap_mode = 2
 
 [node name="Root" type="Node3D"]
 
-[node name="Rotator" type="Node3D" parent="."]
-script = ExtResource("1_2262g")
-rotation_delta = Vector3(0.6, 0.2, -0.3)
+[node name="GameState" type="Node" parent="."]
+script = ExtResource("1_ifaiv")
 
-[node name="Cube" type="MeshInstance3D" parent="Rotator"]
-mesh = SubResource("BoxMesh_ri1ix")
-skeleton = NodePath("../..")
+[node name="Hud" parent="." node_paths=PackedStringArray("game_state") instance=ExtResource("4_m1504")]
+game_state = NodePath("../GameState")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="RotatorAnchor" type="Node3D" parent="."]
 transform = Transform3D(0.904715, -0.200928, 0.375657, -1.86265e-08, 0.88179, 0.471643, -0.426016, -0.426703, 0.797769, 1.05953, 1.257, 2.04001)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.194114, -0.25, 0.948588, -0.482963, 0.866025, 0.12941, -0.853854, -0.433013, -0.288849, 1.26495, 1.65212, 1.08013)
-light_color = Color(0.928598, 0.615729, 0.323013, 1)
+[node name="Rotator" type="Node3D" parent="RotatorAnchor"]
+script = ExtResource("1_2262g")
+rotation_delta = Vector3(0, 0, 0.2)
+metadata/_custom_type_script = "uid://ksy0s0r35gw4"
+
+[node name="Camera3D" type="Camera3D" parent="RotatorAnchor/Rotator"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, 5.96046e-08, 1, 0, 0, 0)
+fov = 90.0
+script = ExtResource("2_wdj6m")
+interaction_raycast_collision_mask = 2
+interaction_max_distance = 10.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_2262g")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.194114, -0.25, 0.948588, -0.482963, 0.866025, 0.12941, -0.853854, -0.433013, -0.288848, 1.26495, 1.65212, 1.08013)
+light_color = Color(0.928598, 0.615729, 0.323013, 1)
+shadow_enabled = true
+shadow_blur = 0.0
+
+[node name="RotatingCube1" parent="." instance=ExtResource("1_wdj6m")]
+
+[node name="RotatingCube2" parent="." instance=ExtResource("1_wdj6m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.33609, 0, 0.622863)
+
+[node name="RotatingCube3" parent="." instance=ExtResource("1_wdj6m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.95925, 2.38419e-07, -3.4727)

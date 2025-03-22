@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://clcw7rxtmjpa5"]
+
+[ext_resource type="Script" uid="uid://ksy0s0r35gw4" path="res://scripts/rotator.gd" id="1_v448y"]
+[ext_resource type="Script" uid="uid://bglowf6am35jg" path="res://scripts/interaction_receiver.gd" id="2_g4rjk"]
+[ext_resource type="Script" uid="uid://cbcfbgcmhplc" path="res://scripts/test.gd" id="3_ca5ju"]
+[ext_resource type="AudioStream" uid="uid://bv1rat0bgaebc" path="res://sounds/click.wav" id="4_g4rjk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wdj6m"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ri1ix"]
+
+[node name="RotatingCube" type="Node3D"]
+
+[node name="Rotator" type="Node3D" parent="."]
+script = ExtResource("1_v448y")
+rotation_delta = Vector3(0.6, 0.2, -0.3)
+
+[node name="Cube" type="StaticBody3D" parent="Rotator"]
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Rotator/Cube"]
+shape = SubResource("BoxShape3D_wdj6m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Rotator/Cube"]
+mesh = SubResource("BoxMesh_ri1ix")
+skeleton = NodePath("../../..")
+
+[node name="InteractionReceiver" type="Node" parent="Rotator/Cube"]
+script = ExtResource("2_g4rjk")
+
+[node name="Test" type="Node" parent="Rotator/Cube"]
+script = ExtResource("3_ca5ju")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_g4rjk")
+volume_db = -12.0
+
+[connection signal="interacted" from="Rotator/Cube/InteractionReceiver" to="Rotator/Cube/Test" method="test"]
+[connection signal="interacted" from="Rotator/Cube/InteractionReceiver" to="AudioStreamPlayer3D" method="play"]

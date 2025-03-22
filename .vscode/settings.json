@@ -1,0 +1,10 @@
+{
+    "godotTools.editorPath.godot4": "c:\\Godot_v4.4-stable_win64.exe\\Godot_v4.4-stable_win64.exe",
+    "files.exclude": {
+        ".godot": true,
+        "**/*.uid": true,
+        "**/*.import": true
+    },
+    "editor.tabSize": 4,
+    "editor.useTabStops": true
+}

@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckkowk641jixe"]
+
+[ext_resource type="Script" uid="uid://ksy0s0r35gw4" path="res://scripts/rotator.gd" id="1_2262g"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ri1ix"]
+
+[sub_resource type="Environment" id="Environment_2262g"]
+ambient_light_source = 2
+ambient_light_color = Color(0.068772, 0.152451, 0.322198, 1)
+tonemap_mode = 2
+
+[node name="Root" type="Node3D"]
+
+[node name="Rotator" type="Node3D" parent="."]
+script = ExtResource("1_2262g")
+rotation_delta = Vector3(0.6, 0.2, -0.3)
+
+[node name="Cube" type="MeshInstance3D" parent="Rotator"]
+mesh = SubResource("BoxMesh_ri1ix")
+skeleton = NodePath("../..")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.904715, -0.200928, 0.375657, -1.86265e-08, 0.88179, 0.471643, -0.426016, -0.426703, 0.797769, 1.05953, 1.257, 2.04001)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.194114, -0.25, 0.948588, -0.482963, 0.866025, 0.12941, -0.853854, -0.433013, -0.288849, 1.26495, 1.65212, 1.08013)
+light_color = Color(0.928598, 0.615729, 0.323013, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2262g")

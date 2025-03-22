@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=3 uid="uid://c362txc8wkpae"]
+[gd_scene load_steps=2 format=3 uid="uid://c362txc8wkpae"]
 
-[ext_resource type="Script" uid="uid://chaffl5fmrvk3" path="res://scripts/hud.gd" id="1_nk167"]
 [ext_resource type="Script" uid="uid://bt1yewpp711tw" path="res://scripts/score_label.gd" id="2_gbh6h"]
 
 [node name="Hud" type="Control"]
@@ -11,7 +10,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_nk167")
 
 [node name="ScoreLabel" type="RichTextLabel" parent="."]
 layout_mode = 0

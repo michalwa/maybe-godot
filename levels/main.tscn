@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ckkowk641jixe"]
+[gd_scene load_steps=8 format=3 uid="uid://ckkowk641jixe"]
 
 [ext_resource type="Script" uid="uid://ksy0s0r35gw4" path="res://scripts/rotator.gd" id="1_2262g"]
 [ext_resource type="Script" uid="uid://dpf7kny48y5u5" path="res://scripts/game_state.gd" id="1_ifaiv"]
@@ -11,13 +11,15 @@ ambient_light_source = 2
 ambient_light_color = Color(0.068772, 0.152451, 0.322198, 1)
 tonemap_mode = 2
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ifaiv"]
+size = Vector3(10, 10, 10)
+
 [node name="Root" type="Node3D"]
 
 [node name="GameState" type="Node" parent="."]
 script = ExtResource("1_ifaiv")
 
-[node name="Hud" parent="." node_paths=PackedStringArray("game_state") instance=ExtResource("4_m1504")]
-game_state = NodePath("../GameState")
+[node name="Hud" parent="." instance=ExtResource("4_m1504")]
 
 [node name="RotatorAnchor" type="Node3D" parent="."]
 transform = Transform3D(0.904715, -0.200928, 0.375657, -1.86265e-08, 0.88179, 0.471643, -0.426016, -0.426703, 0.797769, 1.05953, 1.257, 2.04001)
@@ -42,6 +44,13 @@ transform = Transform3D(-0.194114, -0.25, 0.948588, -0.482963, 0.866025, 0.12941
 light_color = Color(0.928598, 0.615729, 0.323013, 1)
 shadow_enabled = true
 shadow_blur = 0.0
+
+[node name="Area3D" type="Area3D" parent="."]
+audio_bus_override = true
+audio_bus_name = &"Reverb"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_ifaiv")
 
 [node name="RotatingCube1" parent="." instance=ExtResource("1_wdj6m")]
 

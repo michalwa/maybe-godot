@@ -15,6 +15,10 @@ run/main_scene="uid://ckkowk641jixe"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[editor]
+
+movie_writer/movie_file="D:/Godot/maybe-godot/export/movie.avi"
+
 [input]
 
 interact={

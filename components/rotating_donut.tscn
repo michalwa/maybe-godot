@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://clcw7rxtmjpa5"]
+
+[ext_resource type="Script" uid="uid://c718pfk0gbcda" path="res://scripts/rotating_cube.gd" id="1_ca5ju"]
+[ext_resource type="Script" uid="uid://ksy0s0r35gw4" path="res://scripts/rotator.gd" id="1_v448y"]
+[ext_resource type="Script" uid="uid://bglowf6am35jg" path="res://scripts/interaction_receiver.gd" id="2_g4rjk"]
+[ext_resource type="Script" uid="uid://cbcfbgcmhplc" path="res://scripts/test.gd" id="3_ca5ju"]
+[ext_resource type="AudioStream" uid="uid://bv1rat0bgaebc" path="res://sounds/click.wav" id="4_g4rjk"]
+[ext_resource type="PackedScene" uid="uid://hn2gc4vao752" path="res://models/donut.glb" id="5_6jib8"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_g242w"]
+height = 0.470642
+radius = 0.70752
+
+[node name="RotatingDonut" type="Node3D"]
+script = ExtResource("1_ca5ju")
+
+[node name="Rotator" type="Node3D" parent="."]
+script = ExtResource("1_v448y")
+rotation_delta = Vector3(0.6, 0.2, -0.3)
+
+[node name="Rotator" type="Node3D" parent="Rotator"]
+script = ExtResource("1_v448y")
+rotation_delta = Vector3(0, 1, 0)
+metadata/_custom_type_script = "uid://ksy0s0r35gw4"
+
+[node name="Cube" type="StaticBody3D" parent="Rotator/Rotator"]
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Rotator/Rotator/Cube"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0140076, 0)
+shape = SubResource("CylinderShape3D_g242w")
+
+[node name="Donut" parent="Rotator/Rotator/Cube" instance=ExtResource("5_6jib8")]
+transform = Transform3D(9.78502, 0, 0, 0, 9.78502, 0, 0, 0, 9.78502, 0, 0, 0)
+
+[node name="InteractionReceiver" type="Node" parent="Rotator/Rotator/Cube"]
+unique_name_in_owner = true
+script = ExtResource("2_g4rjk")
+
+[node name="Test" type="Node" parent="Rotator/Rotator/Cube"]
+script = ExtResource("3_ca5ju")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_g4rjk")
+volume_db = -12.0
+
+[connection signal="interacted" from="Rotator/Rotator/Cube/InteractionReceiver" to="Rotator/Rotator/Cube/Test" method="test"]
+[connection signal="interacted" from="Rotator/Rotator/Cube/InteractionReceiver" to="AudioStreamPlayer3D" method="play"]

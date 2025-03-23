@@ -1,15 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://ckkowk641jixe"]
+[gd_scene load_steps=11 format=3 uid="uid://ckkowk641jixe"]
 
 [ext_resource type="Script" uid="uid://ksy0s0r35gw4" path="res://scripts/rotator.gd" id="1_2262g"]
 [ext_resource type="Script" uid="uid://dpf7kny48y5u5" path="res://scripts/game_state.gd" id="1_ifaiv"]
-[ext_resource type="PackedScene" uid="uid://clcw7rxtmjpa5" path="res://components/rotating_cube.tscn" id="1_wdj6m"]
+[ext_resource type="PackedScene" uid="uid://clcw7rxtmjpa5" path="res://components/rotating_donut.tscn" id="1_wdj6m"]
 [ext_resource type="Script" uid="uid://dsbj602dichof" path="res://scripts/interaction_dispatcher.gd" id="2_5k4jt"]
 [ext_resource type="PackedScene" uid="uid://c362txc8wkpae" path="res://components/hud.tscn" id="4_m1504"]
 
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ifaiv"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 3.0
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_ifaiv"]
+ground_color = Color(0.0222608, 0.0642225, 0.189296, 1)
+energy_multiplier = 10.0
+
+[sub_resource type="Sky" id="Sky_5k4jt"]
+sky_material = SubResource("PhysicalSkyMaterial_ifaiv")
+
 [sub_resource type="Environment" id="Environment_2262g"]
+background_color = Color(0.0617062, 0.0517164, 0.224167, 1)
+sky = SubResource("Sky_5k4jt")
 ambient_light_source = 2
-ambient_light_color = Color(0.068772, 0.152451, 0.322198, 1)
+ambient_light_color = Color(0.0656949, 0.102638, 0.304687, 1)
 tonemap_mode = 2
+tonemap_exposure = 2.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ifaiv"]
 size = Vector3(10, 10, 10)
@@ -38,6 +52,7 @@ metadata/_custom_type_script = "uid://ksy0s0r35gw4"
 
 [node name="Camera3D" type="Camera3D" parent="RotatorAnchor/Rotator"]
 transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, 5.96046e-08, 1, 0, 0, 0)
+attributes = SubResource("CameraAttributesPractical_ifaiv")
 fov = 90.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -56,17 +71,17 @@ audio_bus_name = &"Reverb"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_ifaiv")
 
-[node name="RotatingCube1" parent="." instance=ExtResource("1_wdj6m")]
+[node name="RotatingDonut1" parent="." instance=ExtResource("1_wdj6m")]
 label = "John"
 
-[node name="RotatingCube2" parent="." instance=ExtResource("1_wdj6m")]
+[node name="RotatingDonut2" parent="." instance=ExtResource("1_wdj6m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.33609, 0, 0.622863)
 label = "Bob"
 
-[node name="RotatingCube3" parent="." instance=ExtResource("1_wdj6m")]
+[node name="RotatingDonut3" parent="." instance=ExtResource("1_wdj6m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.95925, 2.38419e-07, -3.4727)
 label = "Jack"
 
-[node name="RotatingCube4" parent="RotatingCube3" instance=ExtResource("1_wdj6m")]
+[node name="RotatingDonut4" parent="RotatingDonut3" instance=ExtResource("1_wdj6m")]
 transform = Transform3D(0.243444, -0.112353, 0.13458, 0.125712, 0.27239, 0, -0.122195, 0.0563946, 0.26812, -0.909269, -0.0619199, 0.0489136)
 label = "Marley"

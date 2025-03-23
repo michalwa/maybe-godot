@@ -1,10 +1,10 @@
 class_name InteractionReceiver
 extends Node
 
-signal interacted
+signal interacted(actor: Node)
 
 @export var label: String
 
 
-func interact() -> void:
-	interacted.emit()
+func interact(actor: Node) -> void:
+	interacted.emit(actor)

@@ -1,3 +1,4 @@
+class_name RotatingCube
 extends Node3D
 
 @export var label: String

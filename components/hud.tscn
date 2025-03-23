@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c362txc8wkpae"]
+[gd_scene load_steps=5 format=3 uid="uid://c362txc8wkpae"]
 
 [ext_resource type="Script" uid="uid://04lb2uq7l45d" path="res://scripts/hud.gd" id="1_gbh6h"]
 [ext_resource type="Script" uid="uid://bt1yewpp711tw" path="res://scripts/score_label.gd" id="2_gbh6h"]
 [ext_resource type="Script" uid="uid://bhro5d811c64a" path="res://scripts/interaction_hint.gd" id="2_nk167"]
+[ext_resource type="Script" uid="uid://d1o2wftqr4wpe" path="res://scripts/inventory_label.gd" id="3_aricx"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -14,17 +15,37 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_gbh6h")
 
-[node name="ScoreLabel" type="RichTextLabel" parent="."]
-layout_mode = 0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
 offset_left = 16.0
 offset_top = 16.0
-offset_right = 97.0
-offset_bottom = 56.0
+offset_right = -16.0
+offset_bottom = 43.0
+grow_horizontal = 2
+
+[node name="ScoreLabel" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
 bbcode_enabled = true
 text = "[b]Score:[/b] 1234"
 fit_content = true
 autowrap_mode = 0
 script = ExtResource("2_gbh6h")
+
+[node name="Wrapper" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="InventoryLabel" type="RichTextLabel" parent="VBoxContainer/Wrapper"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "[b]Inventory:[/b] Donut"
+fit_content = true
+script = ExtResource("3_aricx")
 
 [node name="InteractionHint" type="Control" parent="."]
 anchors_preset = 0

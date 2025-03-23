@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://ckkowk641jixe"]
+[gd_scene load_steps=11 format=3 uid="uid://ckkowk641jixe"]
 
 [ext_resource type="Script" uid="uid://ksy0s0r35gw4" path="res://scripts/rotator.gd" id="1_2262g"]
 [ext_resource type="PackedScene" uid="uid://clcw7rxtmjpa5" path="res://components/rotating_donut.tscn" id="1_wdj6m"]
 [ext_resource type="Script" uid="uid://dsbj602dichof" path="res://scripts/interaction_dispatcher.gd" id="2_5k4jt"]
+[ext_resource type="Script" uid="uid://dclpvhe66upb2" path="res://scripts/inventory.gd" id="4_ifaiv"]
 [ext_resource type="PackedScene" uid="uid://c362txc8wkpae" path="res://components/hud.tscn" id="4_m1504"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ifaiv"]
@@ -29,26 +30,32 @@ size = Vector3(10, 10, 10)
 
 [node name="Root" type="Node3D"]
 
-[node name="InteractionDispatcher" type="Node" parent="."]
-script = ExtResource("2_5k4jt")
-interaction_raycast_collision_mask = 2
-interaction_max_distance = 50.0
+[node name="Player" type="Node3D" parent="."]
 
-[node name="Hud" parent="." node_paths=PackedStringArray("interaction_dispatcher") instance=ExtResource("4_m1504")]
-interaction_dispatcher = NodePath("../InteractionDispatcher")
-
-[node name="RotatorAnchor" type="Node3D" parent="."]
+[node name="RotatorAnchor" type="Node3D" parent="Player"]
 transform = Transform3D(0.904715, -0.200928, 0.375657, -1.86265e-08, 0.88179, 0.471643, -0.426016, -0.426703, 0.797769, 1.05953, 1.257, 2.04001)
 
-[node name="Rotator" type="Node3D" parent="RotatorAnchor"]
+[node name="Rotator" type="Node3D" parent="Player/RotatorAnchor"]
 script = ExtResource("1_2262g")
 rotation_delta = Vector3(0, 0, 0.2)
 metadata/_custom_type_script = "uid://ksy0s0r35gw4"
 
-[node name="Camera3D" type="Camera3D" parent="RotatorAnchor/Rotator"]
+[node name="Camera3D" type="Camera3D" parent="Player/RotatorAnchor/Rotator"]
 transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, 5.96046e-08, 1, 0, 0, 0)
 attributes = SubResource("CameraAttributesPractical_ifaiv")
 fov = 90.0
+
+[node name="Hud" parent="Player" node_paths=PackedStringArray("interaction_dispatcher", "inventory") instance=ExtResource("4_m1504")]
+interaction_dispatcher = NodePath("../InteractionDispatcher")
+inventory = NodePath("../Inventory")
+
+[node name="InteractionDispatcher" type="Node" parent="Player"]
+script = ExtResource("2_5k4jt")
+interaction_raycast_collision_mask = 2
+interaction_max_distance = 50.0
+
+[node name="Inventory" type="Node" parent="Player"]
+script = ExtResource("4_ifaiv")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_2262g")

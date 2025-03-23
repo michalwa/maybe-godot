@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://ckkowk641jixe"]
+[gd_scene load_steps=12 format=3 uid="uid://ckkowk641jixe"]
 
-[ext_resource type="Script" uid="uid://ksy0s0r35gw4" path="res://scripts/rotator.gd" id="1_2262g"]
+[ext_resource type="Script" uid="uid://c0vpfb7ga6l01" path="res://scripts/player.gd" id="1_ifaiv"]
 [ext_resource type="PackedScene" uid="uid://clcw7rxtmjpa5" path="res://components/rotating_donut.tscn" id="1_wdj6m"]
 [ext_resource type="Script" uid="uid://dsbj602dichof" path="res://scripts/interaction_dispatcher.gd" id="2_5k4jt"]
 [ext_resource type="Script" uid="uid://dclpvhe66upb2" path="res://scripts/inventory.gd" id="4_ifaiv"]
@@ -28,20 +28,17 @@ tonemap_exposure = 2.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_ifaiv"]
 size = Vector3(10, 10, 10)
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_ifaiv"]
+size = Vector2(10, 10)
+
 [node name="Root" type="Node3D"]
 
 [node name="Player" type="Node3D" parent="."]
+transform = Transform3D(0.904716, -0.200928, 0.375657, -1.86265e-08, 0.88179, 0.471643, -0.426016, -0.426703, 0.797769, 1.05953, 1.257, 2.04001)
+script = ExtResource("1_ifaiv")
 
-[node name="RotatorAnchor" type="Node3D" parent="Player"]
-transform = Transform3D(0.904715, -0.200928, 0.375657, -1.86265e-08, 0.88179, 0.471643, -0.426016, -0.426703, 0.797769, 1.05953, 1.257, 2.04001)
-
-[node name="Rotator" type="Node3D" parent="Player/RotatorAnchor"]
-script = ExtResource("1_2262g")
-rotation_delta = Vector3(0, 0, 0.2)
-metadata/_custom_type_script = "uid://ksy0s0r35gw4"
-
-[node name="Camera3D" type="Camera3D" parent="Player/RotatorAnchor/Rotator"]
-transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, 5.96046e-08, 1, 0, 0, 0)
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, -1.49012e-08, 0, 0, 1, 2.98023e-08, 0, 0, 1, 0, 0, 0)
 attributes = SubResource("CameraAttributesPractical_ifaiv")
 fov = 90.0
 
@@ -52,7 +49,7 @@ inventory = NodePath("../Inventory")
 [node name="InteractionDispatcher" type="Node" parent="Player"]
 script = ExtResource("2_5k4jt")
 interaction_raycast_collision_mask = 2
-interaction_max_distance = 50.0
+interaction_max_distance = 10.0
 
 [node name="Inventory" type="Node" parent="Player"]
 script = ExtResource("4_ifaiv")
@@ -87,3 +84,7 @@ label = "Jack"
 [node name="RotatingDonut4" parent="RotatingDonut3" instance=ExtResource("1_wdj6m")]
 transform = Transform3D(0.243444, -0.112353, 0.13458, 0.125712, 0.27239, 0, -0.122195, 0.0563946, 0.26812, -0.909269, -0.0619199, 0.0489136)
 label = "Marley"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
+mesh = SubResource("PlaneMesh_ifaiv")
